@@ -1,0 +1,38 @@
+api:
+  insecure: true
+
+accessLog: {}
+
+providers:
+  docker: {}
+
+entryPoints:
+  web:
+    address: ":80"
+
+  websecure:
+    address: ":443"
+
+# Example of defining an http route in YAML
+http:
+  routers:
+    test2-router:
+      rule: "Host(`*.test2.cnet`)"
+      service: test2
+
+  services:
+    test2:
+      loadBalancer:
+        servers:
+          - url: "http://test2.cnet"
+
+# certificatesResolvers:
+#  myresolver:
+#    acme:
+#      email: <email@domain>
+#      storage: /acme.json
+#      dnsChallenge:
+#        provider: duckdns
+
+serversTransport:
+  insecureSkipVerify: true
